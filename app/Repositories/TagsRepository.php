@@ -6,31 +6,31 @@ use App\Models\Tag;
 
 class tagsRepository
 {
-    public function getAllUsers()
+    public function getAllTags()
     {
         return Tag::all();
     }
 
-    public function getUserById($id)
+    public function getTagById($id)
     {
         return Tag::findOrFail($id);
     }
 
-    public function createUser(array $data)
+    public function createTag(array $data)
     {
         return Tag::create($data);
     }
 
-    public function updateUser($id, array $data)
+    public function updateTag($id, array $data)
     {
-        $user = $this->getUserById($id);
+        $user = $this->getTagById($id);
         $user->update($data);
         return $user;
     }
 
     public function destroyUser($id)
     {
-        $user = $this->getUserById($id);
+        $user = $this->getTagById($id);
         $user->delete();
     }
 }

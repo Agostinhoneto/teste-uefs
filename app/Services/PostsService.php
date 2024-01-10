@@ -13,28 +13,28 @@ class PostsService
         $this->postsRepository = $postsRepository;
     }
 
-    public function getAllUsers()
+    public function getAllPosts()
     {
-        return $this->postsRepository->getAllUsers();
+        return $this->postsRepository->getAllPosts();
     }
 
-    public function getUserById($id)
+    public function getPostById($id)
     {
-        return $this->postsRepository->getUserById($id);
+        return $this->postsRepository->getPostById($id);
     }
 
-    public function createUser(array $data)
+    public function createPost(array $data)
     {
-        return $this->postsRepository->createUser($data);
+        return $this->postsRepository->createPost($data);
     }
 
-    public function updateUser($id, array $data)
+    public function updatePost($id, array $data)
     {
-        return $this->postsRepository->updateUser($id, $data);
+        return $this->postsRepository->updatePost($id, $data);
     }
 
-    public function destroyUser($id)
+    public function destroyPost($id)
     {
-        return $this->postsRepository->destroyUser($id);
+        return $this->postsRepository->destroyPost($id);
     }
 }

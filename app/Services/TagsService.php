@@ -13,28 +13,28 @@ class TagsService
         $this->tagsRepository = $tagsRepository;
     }
 
-    public function getAllUsers()
+    public function getAllTags()
     {
-        return $this->tagsRepository->getAllUsers();
+        return $this->tagsRepository->getAllTags();
     }
 
-    public function getUserById($id)
+    public function getTagById($id)
     {
-        return $this->tagsRepository->getUserById($id);
+        return $this->tagsRepository->getTagById($id);
     }
 
-    public function createUser(array $data)
+    public function createTag(array $data)
     {
-        return $this->tagsRepository->createUser($data);
+        return $this->tagsRepository->createTag($data);
     }
 
-    public function updateUser($id, array $data)
+    public function updateTag($id, array $data)
     {
-        return $this->tagsRepository->updateUser($id, $data);
+        return $this->tagsRepository->updateTag($id, $data);
     }
 
-    public function destroyUser($id)
+    public function destroyTag($id)
     {
-        return $this->tagsRepository->destroyUser($id);
+        return $this->tagsRepository->destroyTag($id);
     }
 }
