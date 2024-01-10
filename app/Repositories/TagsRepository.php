@@ -28,7 +28,7 @@ class tagsRepository
         return $user;
     }
 
-    public function destroyUser($id)
+    public function destroyTag($id)
     {
         $user = $this->getTagById($id);
         $user->delete();
