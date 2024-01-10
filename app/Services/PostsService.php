@@ -2,9 +2,7 @@
 
 namespace App\Services;
 
-use App\Repositories\BateriasRepository;
 use App\Repositories\PostsRepository;
-use Illuminate\Support\Facades\DB;
 
 class PostsService
 {
@@ -15,19 +13,28 @@ class PostsService
         $this->postsRepository = $postsRepository;
     }
 
-    public function salvar($id,$surfista1,$surfista2)
+    public function getAllUsers()
     {
-        DB::beginTransaction();
-        try {
-            $data = $this->postsRepository->salvar(
-                $id,
-                $surfista1,
-                $surfista2);
-            DB::commit();
-            return $data;
-        } catch (\Exception $e) {
-            DB::rollback();
-            throw new \Exception($e);
-        }
+        return $this->postsRepository->getAllUsers();
+    }
+
+    public function getUserById($id)
+    {
+        return $this->postsRepository->getUserById($id);
+    }
+
+    public function createUser(array $data)
+    {
+        return $this->postsRepository->createUser($data);
+    }
+
+    public function updateUser($id, array $data)
+    {
+        return $this->postsRepository->updateUser($id, $data);
+    }
+
+    public function destroyUser($id)
+    {
+        return $this->postsRepository->destroyUser($id);
     }
 }

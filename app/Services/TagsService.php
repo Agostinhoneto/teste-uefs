@@ -2,9 +2,7 @@
 
 namespace App\Services;
 
-use App\Repositories\OndasRepository;
 use App\Repositories\tagsRepository;
-use Illuminate\Support\Facades\DB;
 
 class TagsService
 {
@@ -15,16 +13,28 @@ class TagsService
         $this->tagsRepository = $tagsRepository;
     }
 
-    public function salvar($id)
+    public function getAllUsers()
     {
-        DB::beginTransaction();
-        try {
-            $data = $this->tagsRepository->salvar($id);
-            DB::commit();
-            return $data;
-        } catch (\Exception $e) {
-            DB::rollback();
-            throw new \Exception($e);
-        }
+        return $this->tagsRepository->getAllUsers();
+    }
+
+    public function getUserById($id)
+    {
+        return $this->tagsRepository->getUserById($id);
+    }
+
+    public function createUser(array $data)
+    {
+        return $this->tagsRepository->createUser($data);
+    }
+
+    public function updateUser($id, array $data)
+    {
+        return $this->tagsRepository->updateUser($id, $data);
+    }
+
+    public function destroyUser($id)
+    {
+        return $this->tagsRepository->destroyUser($id);
     }
 }
