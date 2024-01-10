@@ -1,0 +1,29 @@
+version: '3'
+services:
+  # Serviço do Laravel (servidor web)
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: teste-do-uefs :latest
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+    environment:
+      - APP_ENV=local
+      - DB_HOST=db
+      - DB_DATABASE=teste_uefs
+      - DB_USERNAME=root
+      - DB_PASSWORD=
+
+  # Serviço do MySQL
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: teste_uefs
+      MYSQL_ROOT_PASSWORD: root
