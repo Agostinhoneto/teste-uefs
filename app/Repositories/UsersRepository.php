@@ -27,21 +27,16 @@ class UsersRepository
         return User::create($data);
     }
 
-    
-    /*
-    public function salvar($id,$name)
+    public function updateUser($id, array $data)
     {
-
-        try {
-            $user = new User();
-            $user->id = $id;
-            $user->name = $name;
-            $user->save();
-
-            return $user;
-        } catch (\Exception $e) {
-            throw new \Exception($e);
-        }
+        $user = $this->getUserById($id);
+        $user->update($data);
+        return $user;
     }
-    */
+
+    public function destroyUser($id)
+    {
+        $user = $this->getUserById($id);
+        $user->delete();
+    }
 }

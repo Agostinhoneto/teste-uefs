@@ -14,7 +14,7 @@ class UsersService
     {
         $this->usersRepository = $usersRepository;
     }
-    
+
     public function getAllUsers()
     {
         return $this->usersRepository->getAllUsers();
@@ -24,19 +24,19 @@ class UsersService
     {
         return $this->usersRepository->getUserById($id);
     }
-    
-    /*
-    public function createUser($name)
+
+    public function createUser(array $data)
     {
-        DB::beginTransaction();
-        try {
-            $data = $this->usersRepository->salvar($name);
-            DB::commit();
-            return $data;
-        } catch (\Exception $e) {
-            DB::rollback();
-            throw new \Exception($e);
-        }
+        return $this->usersRepository->createUser($data);
     }
-    */
+
+    public function updateUser($id, array $data)
+    {
+        return $this->usersRepository->updateUser($id, $data);
     }
+
+    public function destroyUser($id)
+    {
+        return $this->usersRepository->destroyUser($id);
+    }
+}
