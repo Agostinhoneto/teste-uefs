@@ -4,7 +4,10 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Repositories\UsersRepository;
+use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Psr\Log\InvalidArgumentException;
 
 class UsersService
 {
@@ -58,8 +61,17 @@ class UsersService
         }
     }
 
-    public function destroyUser($id)
-    {
-        return $this->usersRepository->destroyUser($id);
+    public function destroyUser($id){
+        DB::beginTransaction();
+        try{
+            DB::commit();
+            $user = $this->usersRepository->delete($id);
+        }
+        catch(Exception $e){
+            DB::roolBack();
+            Log::info($e->getMessage());
+            throw new InvalidArgumentException('Não pode ser deletado');
+        }
+        return $user;
     }
 }

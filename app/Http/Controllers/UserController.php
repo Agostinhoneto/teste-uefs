@@ -57,11 +57,19 @@ class UserController extends Controller
             $request->email,
             $request->password,
         );
-        return response()->json([Messages::SAVE_MESSAGE, HttpStatusCodes::OK, $result]);
+        return response()->json([Messages::UPDATE_MESSAGE, HttpStatusCodes::OK, $result]);
     }
 
-    public function destroy($id)
-    {
-        $this->userService->destroyUser($id);
+    public function destroy($id){
+        $result = ['status' => 200];
+        try{
+            $result['data'] = $this->userService->destroyUser($id);
+            return response()->json([Messages::DELETE_MESSAGE, HttpStatusCodes::OK, $result]);
+        }catch(Exception $e){
+           return response()->json([
+                	'success' => false,
+                	'message' => 'não foi deletar',
+                ], 500);
+        }
     }
 }

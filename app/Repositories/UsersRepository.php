@@ -51,9 +51,12 @@ class UsersRepository
         }
     }
 
-    public function destroyUser($id)
+    public function delete($id)
     {
-        $user = $this->getById($id);
-        $user->delete();
+        if($id != null ){
+            $user = $this->user->findOrFail($id);
+            $user->delete();
+        } 
+        return $user;  
     }
 }
