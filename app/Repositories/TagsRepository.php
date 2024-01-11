@@ -19,7 +19,6 @@ class tagsRepository
             $tag = new Tag();
             $tag->name = $name;
             $tag->save();
-
             return $tag;
         } catch (\Exception $e) {
             throw new \Exception($e);

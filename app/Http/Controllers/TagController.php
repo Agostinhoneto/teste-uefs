@@ -41,9 +41,7 @@ class TagController extends Controller
     {
         $result['data'] = $this->tagService->createTag(
             $request->id,
-            $request->user_id,
-            $request->title,
-            $request->content,
+            $request->name,
         );
         return response()->json([Messages::SAVE_MESSAGE, HttpStatusCodes::OK, $result]);
     }
@@ -52,9 +50,7 @@ class TagController extends Controller
     {
         $result['data'] = $this->tagService->updateTag(
             $request->id,
-            $request->user_id,
-            $request->title,
-            $request->content,
+            $request->name,
         );
         return response()->json([Messages::UPDATE_MESSAGE, HttpStatusCodes::OK, $result]);
     }
