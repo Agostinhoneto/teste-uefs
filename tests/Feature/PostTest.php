@@ -24,8 +24,5 @@ class PostTest extends TestCase
         $this->assertInstanceOf(Post::class, $post);
         $this->assertEquals($user->id, $post->user_id);
 
-        //$response = $this->get('/');
-
-        //$response->assertStatus(200);
     }
 }

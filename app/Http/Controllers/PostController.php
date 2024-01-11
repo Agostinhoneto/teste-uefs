@@ -70,7 +70,7 @@ class PostController extends Controller
         }catch(Exception $e){
            return response()->json([
                 	'success' => false,
-                	'message' => 'não foi deletar',
+                	'message' => 'não foi possivél deletar',
                 ], 500);
         }
     }   

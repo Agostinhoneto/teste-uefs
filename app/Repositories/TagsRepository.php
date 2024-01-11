@@ -6,31 +6,44 @@ use App\Models\Tag;
 
 class tagsRepository
 {
-    public function getAllTags()
-    {
-        return Tag::all();
-    }
+    private $tag;
 
-    public function getTagById($id)
-    {
+    public function getById($id){
         return Tag::findOrFail($id);
     }
 
-    public function createTag(array $data)
+    
+    public function salvar($id, $name)
     {
-        return Tag::create($data);
+        try {
+            $tag = new Tag();
+            $tag->name = $name;
+            $tag->save();
+
+            return $tag;
+        } catch (\Exception $e) {
+            throw new \Exception($e);
+        }
     }
 
-    public function updateTag($id, array $data)
+    public function update($id, $name)
     {
-        $user = $this->getTagById($id);
-        $user->update($data);
-        return $user;
+        try {
+            $tag = $this->tag->find($id);   
+            $tag->name = $name;
+            $tag->update();
+            return $tag->fresh();
+        } catch (\Exception $e) {
+            throw new \Exception($e);
+        }
     }
 
-    public function destroyTag($id)
+    public function delete($id)
     {
-        $user = $this->getTagById($id);
-        $user->delete();
+        if($id != null ){
+            $tag = $this->tag->findOrFail($id);
+            $tag->delete();
+        } 
+        return $tag;  
     }
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Helpers\HttpStatusCodes;
 use App\Helpers\Messages;
-use App\Http\Requests\CreateUserRequest;
 use App\Http\Resources\UsersResource;
 use App\Models\User;
 use App\Services\UsersService;
@@ -68,7 +67,7 @@ class UserController extends Controller
         }catch(Exception $e){
            return response()->json([
                 	'success' => false,
-                	'message' => 'não foi deletar',
+                	'message' => 'não foi possivél deletar',
                 ], 500);
         }
     }

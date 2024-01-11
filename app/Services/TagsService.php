@@ -3,6 +3,10 @@
 namespace App\Services;
 
 use App\Repositories\tagsRepository;
+use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use InvalidArgumentException;
 
 class TagsService
 {
@@ -13,28 +17,54 @@ class TagsService
         $this->tagsRepository = $tagsRepository;
     }
 
-    public function getAllTags()
+    public function getById($id)
     {
-        return $this->tagsRepository->getAllTags();
+        return $this->tagsRepository
+            ->getById($id);
     }
 
-    public function getTagById($id)
+    public function getUserById($id)
     {
-        return $this->tagsRepository->getTagById($id);
+        return $this->tagsRepository->getById($id);
     }
 
-    public function createTag(array $data)
+    public function createTag($id, $name)
     {
-        return $this->tagsRepository->createTag($data);
+        DB::beginTransaction();
+        try {
+            $data = $this->tagsRepository->salvar($id, $name);
+            DB::commit();
+            return $data;
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw new \Exception($e);
+        }
     }
 
-    public function updateTag($id, array $data)
+    public function updateTag($id, $name)
     {
-        return $this->tagsRepository->updateTag($id, $data);
+        DB::beginTransaction();
+        try {
+            $data = $this->tagsRepository->update($id, $name);
+            DB::commit();
+            return $data;
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw new \Exception($e);
+        }
     }
 
-    public function destroyTag($id)
-    {
-        return $this->tagsRepository->destroyTag($id);
+    public function destroy($id){
+        DB::beginTransaction();
+        try{
+            DB::commit();
+            $user = $this->tagsRepository->delete($id);
+        }
+        catch(Exception $e){
+            DB::roolBack();
+            Log::info($e->getMessage());
+            throw new InvalidArgumentException('Não pode ser deletado');
+        }
+        return $user;
     }
 }
