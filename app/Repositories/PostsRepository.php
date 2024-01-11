@@ -7,31 +7,55 @@ use App\Models\Post;
 
 class PostsRepository
 {
-    public function getAllPosts()
+ 
+    private $post;
+
+    public function getAllUsers()
     {
         return Post::all();
     }
 
-    public function getPostById($id)
-    {
+    public function getPostById($id){
         return Post::findOrFail($id);
     }
 
-    public function createPost(array $data)
+    
+    public function createPost($id, $user_id, $title, $content)
     {
-        return Post::create($data);
+        try {
+            $post = new Post();
+            $post->user_id = $user_id;
+            $post->title = $title;
+            $post->content  = $content;
+            $post->save();
+
+            return $post;
+        } catch (\Exception $e) {
+            throw new \Exception($e);
+        }
     }
 
-    public function updatePost($id, array $data)
+    public function update($id, $user_id, $title, $content)
     {
-        $user = $this->getPostById($id);
-        $user->update($data);
-        return $user;
+        try {
+            $post = $this->post->find($id);   
+            $post->user_id = $user_id;
+            $post->title = $title;
+            $post->content  = $content;
+            $post->update();
+            return $post->fresh();
+        } catch (\Exception $e) {
+            throw new \Exception($e);
+        }
     }
 
-    public function destroyPost($id)
+    public function delete($id)
     {
-        $user = $this->getPostById($id);
-        $user->delete();
+        if($id != null ){
+            $post = $this->post->findOrFail($id);
+            $post->delete();
+        } 
+        return $post;  
     }
 }
+

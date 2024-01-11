@@ -3,6 +3,10 @@
 namespace App\Services;
 
 use App\Repositories\PostsRepository;
+use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use InvalidArgumentException;
 
 class PostsService
 {
@@ -13,28 +17,49 @@ class PostsService
         $this->postsRepository = $postsRepository;
     }
 
-    public function getAllPosts()
+    public function getById($id)
     {
-        return $this->postsRepository->getAllPosts();
+        return $this->postsRepository
+            ->getPostById($id);
     }
 
-    public function getPostById($id)
+    public function createPost($id, $user_id, $title, $content)
     {
-        return $this->postsRepository->getPostById($id);
+        DB::beginTransaction();
+        try {
+            $data = $this->postsRepository->createPost($id,$user_id, $title, $content);
+            DB::commit();
+            return $data;
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw new \Exception($e);
+        }
     }
 
-    public function createPost(array $data)
+    public function updatePost($id, $user_id, $title, $content)
     {
-        return $this->postsRepository->createPost($data);
+        DB::beginTransaction();
+        try {
+            $data = $this->postsRepository->update($id, $user_id, $title, $content);
+            DB::commit();
+            return $data;
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw new \Exception($e);
+        }
     }
 
-    public function updatePost($id, array $data)
-    {
-        return $this->postsRepository->updatePost($id, $data);
-    }
-
-    public function destroyPost($id)
-    {
-        return $this->postsRepository->destroyPost($id);
+    public function destroy($id){
+        DB::beginTransaction();
+        try{
+            DB::commit();
+            $user = $this->postsRepository->delete($id);
+        }
+        catch(Exception $e){
+            DB::roolBack();
+            Log::info($e->getMessage());
+            throw new InvalidArgumentException('Não pode ser deletado');
+        }
+        return $user;
     }
 }

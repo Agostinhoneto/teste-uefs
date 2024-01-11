@@ -8,6 +8,7 @@ use App\Http\Requests\CreatePostRequest;
 use App\Http\Resources\PostsResource;
 use App\Models\Post;
 use App\Services\PostsService;
+use Exception;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -29,27 +30,48 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $user = $this->postService->getPostById($id);
+        try {
+            if (!empty($id)) {
+                $result['data'] = $this->postService->getById($id);
+                return response()->json([Messages::SUCCESS_MESSAGE, HttpStatusCodes::OK,$result]);
+            }
+        } catch (Exception $e) {
+            return response()->json([Messages::ERROR_MESSAGE, HttpStatusCodes::INTERNAL_SERVER_ERROR]);
+        }
+    }
+   
+    public function store(Request $request)
+    {
+        $result['data'] = $this->postService->createPost(
+            $request->id,
+            $request->user_id,
+            $request->title,
+            $request->content,
+        );
+        return response()->json([Messages::SAVE_MESSAGE, HttpStatusCodes::OK, $result]);
     }
 
-    public function store(CreatePostRequest $request)
+    public function update(Request $request, $id)
     {
-        $this->postService->createPost($request->validated());
+        $result['data'] = $this->postService->updatePost(
+            $request->id,
+            $request->user_id,
+            $request->title,
+            $request->content,
+        );
+        return response()->json([Messages::UPDATE_MESSAGE, HttpStatusCodes::OK, $result]);
     }
 
-    public function edit($id)
-    {
-        $user = $this->postService->getPostById($id);
-    }
-
-    
-    public function update(CreatePostRequest $request, $id)
-    {
-        $this->postService->updatePost($id, $request->validated());
-    }
-    
-    public function destroy($id)
-    {
-        $this->postService->destroyPost($id);
-    }
+    public function destroy($id){
+        $result = ['status' => 200];
+        try{
+            $result['data'] = $this->postService->destroy($id);
+            return response()->json([Messages::DELETE_MESSAGE, HttpStatusCodes::OK, $result]);
+        }catch(Exception $e){
+           return response()->json([
+                	'success' => false,
+                	'message' => 'não foi deletar',
+                ], 500);
+        }
+    }   
 }
