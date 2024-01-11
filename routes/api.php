@@ -37,15 +37,13 @@ Route::delete('/users/destroy/{id}', [UserController::class, 'destroy'])->name('
 //Posts.
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::post('/posts/store', [PostController::class, 'store'])->name('posts.store');
-Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
-Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
-Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
-Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+Route::get('/posts/show/{id}', [PostController::class, 'show'])->name('posts.show');
+Route::put('/posts/update/{id}', [PostController::class, 'edit'])->name('posts.edit');
+Route::delete('/posts/destroy/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 
 //Tags.
 Route::get('/tags',[TagController::class,'index'])->name('tags.index');
 Route::post('/tags/store',[TagController::class,'store'])->name('tags.store');
-Route::get('/tags/{id}', [TagController::class, 'show'])->name('tags.show');
-Route::get('/tags/{id}/edit', [TagController::class, 'edit'])->name('tags.edit');
-Route::put('/tags/{id}', [TagController::class, 'update'])->name('tags.update');
-Route::delete('/tags/{id}', [TagController::class, 'destroy'])->name('tags.destroy');
+Route::get('/tags/show/{id}', [TagController::class, 'show'])->name('tags.show');
+Route::put('/tags/update/{id}', [TagController::class, 'update'])->name('tags.update');
+Route::delete('/tags/destroy/{id}', [TagController::class, 'destroy'])->name('tags.destroy');
