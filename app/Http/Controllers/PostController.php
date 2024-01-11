@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Helpers\HttpStatusCodes;
 use App\Helpers\Messages;
 use App\Http\Requests\CreatePostRequest;
+use App\Http\Resources\PostsResource;
+use App\Models\Post;
 use App\Services\PostsService;
 use Illuminate\Http\Request;
 
@@ -21,7 +23,8 @@ class PostController extends Controller
     
     public function index()
     {
-        $users = $this->postService->getAllPosts();
+        $user = Post::paginate();
+        return PostsResource::collection($user);
     }
 
     public function show($id)

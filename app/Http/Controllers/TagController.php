@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TagsResource;
+use App\Models\Tag;
 use App\Services\TagsService;
 use Illuminate\Http\Request;
 
@@ -16,7 +18,9 @@ class TagController extends Controller
 
     public function index()
     {
-        $users = $this->tagService->getAllTags();
+        $user = Tag::paginate();
+        return TagsResource::collection($user);
+
     }
 
     public function show($id)

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Resources\UsersResource;
+use App\Models\User;
 use App\Services\UsersService;
 use Illuminate\Http\Request;
 
@@ -17,7 +19,11 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = $this->userService->getAllUsers();
+
+        $user = User::paginate();
+        return UsersResource::collection($user);
+
+        //$users = $this->userService->getAllUsers();
     }
 
     public function show($id)
