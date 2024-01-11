@@ -12,7 +12,7 @@ class UserTest extends TestCase
     /**
      * A basic feature test example.
      */
-    public function user_test(): void
+    public function test_example(): void
     {
 
         $user = new User([

@@ -13,20 +13,16 @@ class PostTest extends TestCase
     /**
      * A basic feature test example.
      */
-    public function post_test(): void
+    public function test_example(): void
     {
 
-       // $user = User::find(1);
-
-        $post = new Post([
-            'title' => 'Post de Agostinho',
-            'content' => 'teste de content.',
-            'user_id' => 1,
+        $user = User::factory()->create();
+        $post = Post::factory()->create([
+            'user_id' => $user->id,
         ]);
 
-        $this->assertEquals('Testando Post', $post->title);
-        $this->assertEquals('Testando content.', $post->content);
-        $this->assertEquals('Usuário cadastrante', $post->user_id);
+        $this->assertInstanceOf(Post::class, $post);
+        $this->assertEquals($user->id, $post->user_id);
 
         //$response = $this->get('/');
 

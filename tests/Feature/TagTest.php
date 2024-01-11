@@ -11,7 +11,7 @@ class TagTest extends TestCase
     /**
      * A basic feature test example.
      */
-    public function tag_test(): void
+    public function test_example(): void
     {
         $response = $this->get('/');
 
