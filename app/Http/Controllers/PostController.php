@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Helpers\HttpStatusCodes;
 use App\Helpers\Messages;
 use App\Http\Requests\CreatePostRequest;
-use App\Models\Post;
 use App\Services\PostsService;
 use Illuminate\Http\Request;
 
