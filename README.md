@@ -1,4 +1,4 @@
-# API Laravel 10 - Teste Técnico  projeto UEFS.
+# API Laravel 10 - Teste Técnico  Projeto Teste UEFS.
 
 ## Instalação
 
@@ -26,7 +26,7 @@
 3.1 - Configure o arquivo `.env` com as informações do banco de dados nesse caso usei o Mysql.
 
  - DB_CONNECTION=mysql
- -  DB_HOST=127.0.0.1
+ - DB_HOST=127.0.0.1
  - DB_PORT=3306
  - DB_DATABASE=teste-uefs
  - DB_USERNAME=
@@ -40,10 +40,14 @@
 3.4 - Para rodar a aplicação exceute :  php artisan serve
 
 ### 5 - Endpoints
-- para rodar os Endpoints eu utilizei a ferramenta Postman.
+- para rodar os Endpoints eu utilizei a ferramenta Postman ou Insomnia.
 ---------------------------------------------------------------
+
 Inicio
+
 ### `http://localhost:8000/api/` - para retornar que API está funcionando.
+
+#######################################################################################################
 
 Users
 ### `http://localhost:8000/api/users`
@@ -53,7 +57,9 @@ Users
 - **GET** : `http://localhost:8000/api/users/show/{id}` - Obter um users.
 - **PUT** : `http://localhost:8000/api/users/update/{id}` - Atualiza um users.
 - **Delete** : `http://localhost:8000/api/users/destroy/{id}` - deleta um users.`
+
 #######################################################################################################
+
 ### `http://localhost:8000/api/post`
 
 Posts.
@@ -65,6 +71,9 @@ Posts.
 
 Tags.
 ### `http://localhost:8000/api/tags`
-- **GET**: `http://localhost:8000/api/tags/index` - listar Tags .
 
-- **POST**: `http://localhost:8000/api/tags/store` - Criar uma nova TAG 
+- **GET**: `http://localhost:8000/api/tags/index` - listar tags .
+- **POST**: `http://localhost:8000/api/tags/store` - Criar uma nova tags 
+- **GET** : `http://localhost:8000/api/tags/show/{id}` - Obter um tags.
+- **PUT** : `http://localhost:8000/api/tags/update/{id}` - Atualiza um tags.
+- **Delete** : `http://localhost:8000/api/tags/destroy/{id}` - deleta um tags.
