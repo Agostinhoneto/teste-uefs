@@ -8,7 +8,13 @@ class tagsRepository
 {
     private $tag;
 
-    public function getById($id){
+    public function getAll()
+    {
+        return Tag::all();
+    }
+
+    public function getById($id)
+    {
         return Tag::findOrFail($id);
     }
 

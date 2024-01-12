@@ -17,6 +17,11 @@ class TagsService
         $this->tagsRepository = $tagsRepository;
     }
 
+    public function getAll()
+    {
+        return $this->tagsRepository->getAll();
+    }
+
     public function getById($id)
     {
         return $this->tagsRepository
