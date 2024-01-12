@@ -48,7 +48,8 @@ class PostController extends Controller
     }
    
     public function store(StorePostRequest $request)
-    {      
+    {   
+     
         $result['data'] = $this->postService->createPost(
             $request->id,
             $request->user_id,
@@ -56,6 +57,7 @@ class PostController extends Controller
             $request->content,
         );
         return response()->json([Messages::SAVE_MESSAGE, HttpStatusCodes::OK, $result]);
+
     }
 
     public function update(Request $request, $id)
