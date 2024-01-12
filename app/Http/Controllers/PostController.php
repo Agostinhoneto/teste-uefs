@@ -7,6 +7,7 @@ use App\Helpers\Messages;
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Resources\PostsResource;
 use App\Models\Post;
+use App\Models\Tag;
 use App\Services\PostsService;
 use Exception;
 use Illuminate\Http\Request;
@@ -41,7 +42,7 @@ class PostController extends Controller
     }
    
     public function store(Request $request)
-    {
+    {      
         $result['data'] = $this->postService->createPost(
             $request->id,
             $request->user_id,
