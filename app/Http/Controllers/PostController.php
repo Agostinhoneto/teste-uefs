@@ -22,12 +22,17 @@ class PostController extends Controller
         $this->postService = $postService;
     }
 
-    
     public function index()
     {
-        $user = Post::paginate();
-        return PostsResource::collection($user);
+        $limit = 10;
+        try {
+            $result['data'] = $this->postService->getAll($limit);
+            return response()->json([Messages::SUCCESS_MESSAGE,HttpStatusCodes::OK,$result]);
+        } catch (Exception $e) {
+            return response()->json([Messages::ERROR_MESSAGE, HttpStatusCodes::INTERNAL_SERVER_ERROR]);
+        }
     }
+   
 
     public function show($id)
     {

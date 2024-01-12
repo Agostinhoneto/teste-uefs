@@ -17,6 +17,11 @@ class PostsService
         $this->postsRepository = $postsRepository;
     }
 
+    public function getAll()
+    {
+        return $this->postsRepository->getAll();
+    }
+
     public function getById($id)
     {
         return $this->postsRepository

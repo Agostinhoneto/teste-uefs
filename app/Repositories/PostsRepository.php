@@ -10,12 +10,13 @@ class PostsRepository
  
     private $post;
 
-    public function getAllUsers()
+    public function getAll()
     {
         return Post::all();
     }
 
-    public function getPostById($id){
+    public function getPostById($id)
+    {
         return Post::findOrFail($id);
     }
 

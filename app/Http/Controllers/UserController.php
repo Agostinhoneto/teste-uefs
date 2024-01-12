@@ -21,10 +21,15 @@ class UserController extends Controller
 
     public function index()
     {
-        $user = User::paginate();
-        return UsersResource::collection($user);
+        $limit = 10;
+        try {
+            $result['data'] = $this->userService->getAll($limit);
+            return response()->json([Messages::SUCCESS_MESSAGE,HttpStatusCodes::OK,$result]);
+        } catch (Exception $e) {
+            return response()->json([Messages::ERROR_MESSAGE, HttpStatusCodes::INTERNAL_SERVER_ERROR]);
+        }
     }
-    
+
     public function show($id)
     {
         try {
