@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\HttpStatusCodes;
 use App\Helpers\Messages;
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UsersResource;
 use App\Models\User;
 use App\Services\UsersService;
@@ -42,7 +43,7 @@ class UserController extends Controller
         }
     }
    
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
         $result['data'] = $this->userService->createUser(
             $request->id,

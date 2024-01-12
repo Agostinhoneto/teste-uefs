@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Helpers\HttpStatusCodes;
 use App\Helpers\Messages;
+use App\Http\Requests\StoreTagRequest;
 use App\Http\Resources\TagsResource;
+use App\Models\Post;
 use App\Models\Tag;
 use App\Services\TagsService;
 use Exception;
@@ -21,31 +23,31 @@ class TagController extends Controller
 
     public function index()
     {
-       
-            $limit = 10;
-            try {
-                $result['data'] = $this->tagService->getAll($limit);
-                return response()->json([Messages::SUCCESS_MESSAGE,HttpStatusCodes::OK,$result]);
-            } catch (Exception $e) {
-                return response()->json([Messages::ERROR_MESSAGE, HttpStatusCodes::INTERNAL_SERVER_ERROR]);
-            }
-       
-    }
 
-    public function show($id)
-    {
+        $limit = 10;
         try {
-            if (!empty($id)) {
-                $result['data'] = $this->tagService->getById($id);
-                return response()->json([Messages::SUCCESS_MESSAGE, HttpStatusCodes::OK, $result]);
-            }
+            $result['data'] = $this->tagService->getAll($limit);
+            return response()->json([Messages::SUCCESS_MESSAGE, HttpStatusCodes::OK, $result]);
         } catch (Exception $e) {
             return response()->json([Messages::ERROR_MESSAGE, HttpStatusCodes::INTERNAL_SERVER_ERROR]);
         }
     }
 
-    public function store(Request $request)
+    public function show($id)
     {
+        try {
+            if (empty($id)) {
+                $result['data'] = $this->tagService->getById($id);
+                return response()->json([Messages::SUCCESS_MESSAGE, HttpStatusCodes::OK, $result]);
+            }
+        } catch (Exception $e) {
+            return response()->json([Messages::ERROR_MESSAGE, HttpStatusCodes::INTERNAL_SERVER_ERROR, NULL]);
+        }
+    }
+
+    public function store(StoreTagRequest $request)
+    {
+
         $result['data'] = $this->tagService->createTag(
             $request->id,
             $request->name,
@@ -55,11 +57,15 @@ class TagController extends Controller
 
     public function update(Request $request, $id)
     {
-        $result['data'] = $this->tagService->updateTag(
-            $request->id,
-            $request->name,
-        );
-        return response()->json([Messages::UPDATE_MESSAGE, HttpStatusCodes::OK, $result]);
+        try {
+            $result['data'] = $this->tagService->updateTag(
+                $request->id,
+                $request->name,
+            );
+            return response()->json([Messages::UPDATE_MESSAGE, HttpStatusCodes::OK, $result]);
+        } catch (Exception $e) {
+            return response()->json([Messages::ERROR_MESSAGE, HttpStatusCodes::INTERNAL_SERVER_ERROR, NULL]);
+        }
     }
 
     public function destroy($id)
@@ -69,10 +75,7 @@ class TagController extends Controller
             $result['data'] = $this->tagService->destroy($id);
             return response()->json([Messages::DELETE_MESSAGE, HttpStatusCodes::OK, $result]);
         } catch (Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'não foi possivél deletar',
-            ], 500);
+            return response()->json([Messages::ERROR_MESSAGE, HttpStatusCodes::INTERNAL_SERVER_ERROR, NULL]);
         }
     }
 }
