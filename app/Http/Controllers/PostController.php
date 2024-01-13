@@ -4,11 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\HttpStatusCodes;
 use App\Helpers\Messages;
-use App\Http\Requests\CreatePostRequest;
-use App\Http\Requests\StorePostRequest;
-use App\Http\Resources\PostsResource;
 use App\Models\Post;
-use App\Models\Tag;
 use App\Services\PostsService;
 use Exception;
 use Illuminate\Http\Request;
@@ -47,9 +43,9 @@ class PostController extends Controller
         }
     }
    
-    public function store(StorePostRequest $request)
+    public function store(Request $request)
     {   
-     
+
         $result['data'] = $this->postService->createPost(
             $request->id,
             $request->user_id,
@@ -57,7 +53,6 @@ class PostController extends Controller
             $request->content,
         );
         return response()->json([Messages::SAVE_MESSAGE, HttpStatusCodes::OK, $result]);
-
     }
 
     public function update(Request $request, $id)
