@@ -1,40 +1,31 @@
-# Use a imagem oficial do PHP para Laravel
-FROM php:7.4-apache
+FROM php:8.1-fpm
 
-# Instale as dependências necessárias
+# Configurações gerais
+WORKDIR /var/www/html
+COPY . /var/www/html
+
+# Instala as dependências necessárias para o Laravel
 RUN apt-get update && \
     apt-get install -y \
-    libzip-dev \
-    zip \
-    unzip \
-    git \
-    && docker-php-ext-install pdo_mysql zip
+        libzip-dev \
+        zip \
+        unzip \
+        && docker-php-ext-install zip
 
-# Instale o Composer
+# Instala o Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Configure o Apache
-RUN a2enmod rewrite
+# Instala as dependências do Composer
+RUN composer install --no-interaction --no-plugins --no-scripts --prefer-dist
 
-# Configurações adicionais do Apache (se necessário)
-# COPY apache2.conf /etc/apache2/apache2.conf
-# COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+# Copia o arquivo de configuração do Laravel
+COPY .env.example .env
 
-# Crie o diretório da aplicação e copie os arquivos do Laravel
-WORKDIR /var/www/html
-COPY . .
+# Gera a chave de aplicativo do Laravel
+RUN php artisan key:generate
 
-# Instale as dependências do Composer
-RUN composer install --no-interaction --optimize-autoloader
+# Abre a porta 9000 para o PHP-FPM
+EXPOSE 9000
 
-# Configure as permissões
-RUN chown -R www-data:www-data storage bootstrap/cache
-
-# Execute as migrações (se aplicável)
-# RUN php artisan migrate
-
-# Exponha a porta 80
-EXPOSE 80
-
-# Inicialize o servidor Apache
-CMD ["apache2-foreground"]
+# Comando padrão para iniciar o PHP-FPM
+CMD ["php-fpm"]

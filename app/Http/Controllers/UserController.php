@@ -70,11 +70,9 @@ class UserController extends Controller
         try{
             $result['data'] = $this->userService->destroyUser($id);
             return response()->json([Messages::DELETE_MESSAGE, HttpStatusCodes::OK, $result]);
-        }catch(Exception $e){
-           return response()->json([
-                	'success' => false,
-                	'message' => 'não foi possivél deletar',
-                ], 500);
+        }catch (Exception $e) {
+                return response()->json([Messages::ERROR_MESSAGE, HttpStatusCodes::INTERNAL_SERVER_ERROR, NULL]);
+            }
         }
     }
-}
+
