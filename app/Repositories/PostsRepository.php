@@ -21,22 +21,23 @@ class PostsRepository
     }
 
     
-    public function createPost($id, $user_id, $title, $content)
+    public function createPost($user_id, $title, $content,$tags)
     {
+       
         try {
             $post = new Post();
             $post->user_id = $user_id;
             $post->title = $title;
             $post->content  = $content;
             $post->save();
-
+            $post->tags()->sync($tags);  
             return $post;
         } catch (\Exception $e) {
             throw new \Exception($e);
         }
     }
 
-    public function update($id, $user_id, $title, $content)
+    public function update($id, $user_id, $title, $content,$tags)
     {
         try {
             $post = $this->post->find($id);   
@@ -44,6 +45,8 @@ class PostsRepository
             $post->title = $title;
             $post->content  = $content;
             $post->update();
+            $post->tags()->sync($tags);
+          
             return $post->fresh();
         } catch (\Exception $e) {
             throw new \Exception($e);

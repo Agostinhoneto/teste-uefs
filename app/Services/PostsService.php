@@ -28,11 +28,11 @@ class PostsService
             ->getPostById($id);
     }
 
-    public function createPost($id, $user_id, $title, $content)
+    public function createPost($user_id, $title, $content,$tags)
     {
         DB::beginTransaction();
         try {
-            $data = $this->postsRepository->createPost($id,$user_id, $title, $content);
+            $data = $this->postsRepository->createPost($user_id, $title, $content,$tags);
             DB::commit();
             return $data;
         } catch (\Exception $e) {
@@ -41,11 +41,11 @@ class PostsService
         }
     }
 
-    public function updatePost($id, $user_id, $title, $content)
+    public function updatePost($id, $user_id, $title, $content,$tags)
     {
         DB::beginTransaction();
         try {
-            $data = $this->postsRepository->update($id, $user_id, $title, $content);
+            $data = $this->postsRepository->update($id, $user_id, $title, $content,$tags);
             DB::commit();
             return $data;
         } catch (\Exception $e) {
