@@ -40,7 +40,8 @@ class PostsRepository
     public function update($id, $user_id, $title, $content,$tags)
     {
         try {
-            $post = $this->post->find($id);   
+            $post = new Post();
+            $post->$id = $id;  
             $post->user_id = $user_id;
             $post->title = $title;
             $post->content  = $content;

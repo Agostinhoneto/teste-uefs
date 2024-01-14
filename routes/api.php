@@ -39,7 +39,7 @@ Route::delete('/users/destroy/{id}', [UserController::class, 'destroy'])->name('
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::post('/posts/store', [PostController::class, 'store'])->name('posts.store');
 Route::get('/posts/show/{id}', [PostController::class, 'show'])->name('posts.show');
-Route::put('/posts/update/{id}', [PostController::class, 'edit'])->name('posts.update');
+Route::put('/posts/update/{id}', [PostController::class, 'update'])->name('posts.update');
 Route::delete('/posts/destroy/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 
 //Tags.
