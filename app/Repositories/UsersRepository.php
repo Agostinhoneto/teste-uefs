@@ -37,10 +37,11 @@ class UsersRepository
         }
     }
 
-    public function update($id, $name, $email,$password)
+    public function update($id,$name,$email,$password)
     {
         try {
-            $user = $this->user->find($id);   
+            $user = new User();
+            $user->id = $id;
             $user->name = $name;
             $user->email = $email;
             $user->password  = $password;

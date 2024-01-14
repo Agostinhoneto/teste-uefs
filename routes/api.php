@@ -32,14 +32,14 @@ Route::get('/', function () {
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
 Route::get('/users/show/{id}', [UserController::class, 'show'])->name('users.show');
-Route::put('/users/update/{id}', [UserController::class, 'update'])->name('users.edit');
+Route::put('/users/update/{id}', [UserController::class, 'update'])->name('users.update');
 Route::delete('/users/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
 //Posts.
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::post('/posts/store', [PostController::class, 'store'])->name('posts.store');
 Route::get('/posts/show/{id}', [PostController::class, 'show'])->name('posts.show');
-Route::put('/posts/update/{id}', [PostController::class, 'edit'])->name('posts.edit');
+Route::put('/posts/update/{id}', [PostController::class, 'edit'])->name('posts.update');
 Route::delete('/posts/destroy/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 
 //Tags.
