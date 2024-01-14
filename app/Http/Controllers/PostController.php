@@ -54,7 +54,7 @@ class PostController extends Controller
         return response()->json([Messages::SAVE_MESSAGE, HttpStatusCodes::OK, $result]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $result['data'] = $this->postService->updatePost(
             $request->id,

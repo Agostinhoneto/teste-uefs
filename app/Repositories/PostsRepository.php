@@ -47,7 +47,6 @@ class PostsRepository
             $post->content  = $content;
             $post->update();
             $post->tags()->sync($tags);
-          
             return $post->fresh();
         } catch (\Exception $e) {
             throw new \Exception($e);
