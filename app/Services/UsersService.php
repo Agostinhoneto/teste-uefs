@@ -64,8 +64,8 @@ class UsersService
     public function destroyUser($id){
         DB::beginTransaction();
         try{
-            DB::commit();
             $user = $this->usersRepository->delete($id);
+            DB::commit();
         }
         catch(Exception $e){
             DB::roolBack();
