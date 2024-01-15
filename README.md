@@ -77,3 +77,22 @@ Tags.
 - **GET** : `http://localhost:8000/api/tags/show/{id}` - Obter um tags.
 - **PUT** : `http://localhost:8000/api/tags/update/{id}` - Atualiza um tags.
 - **Delete** : `http://localhost:8000/api/tags/destroy/{id}` - deleta um tags.
+
+
+
+## 4 Guia de Testes para Laravel
+
+## Requisitos
+
+- PHP >= 8.0
+- Composer
+- MySQL ou outro banco de dados suportado pelo Laravel
+
+## 
+
+1. **Rodando todos os teste:**
+
+# .\vendor\bin\phpunit
+
+# .\vendor\bin\phpunit [NomeDaClasse]
+
