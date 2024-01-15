@@ -41,11 +41,17 @@ class PostsService
         }
     }
 
-    public function updatePost($id, $user_id, $title, $content,$tags)
+    public function updatePost($id,$user_id, $title, $content,$tags)
     {
         DB::beginTransaction();
         try {
-            $data = $this->postsRepository->update($id, $user_id, $title, $content,$tags);
+            $data = $this->postsRepository->update(
+                $id,
+                $user_id,
+                $title,
+                $content,
+                $tags
+            );
             DB::commit();
             return $data;
         } catch (\Exception $e) {

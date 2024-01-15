@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Helpers\HttpStatusCodes;
 use App\Helpers\Messages;
 use App\Http\Requests\StoreUserRequest;
-use App\Http\Resources\UsersResource;
-use App\Models\User;
 use App\Services\UsersService;
 use Exception;
 use Illuminate\Http\Request;
@@ -71,7 +69,7 @@ class UserController extends Controller
             $result['data'] = $this->userService->destroyUser($id);
             return response()->json([Messages::DELETE_MESSAGE, HttpStatusCodes::OK, $result]);
         }catch (Exception $e) {
-                return response()->json([Messages::ERROR_MESSAGE, HttpStatusCodes::INTERNAL_SERVER_ERROR, NULL]);
+                return response()->json([Messages::ERROR_MESSAGE, HttpStatusCodes::INTERNAL_SERVER_ERROR]);
             }
         }
     }

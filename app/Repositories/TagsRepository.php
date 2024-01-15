@@ -34,7 +34,8 @@ class tagsRepository
     public function update($id, $name)
     {
         try {
-            $tag = $this->tag->find($id);   
+            $tag = new Tag();
+            $tag->id = $id;
             $tag->name = $name;
             $tag->update();
             return $tag->fresh();

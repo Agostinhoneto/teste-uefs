@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Helpers\HttpStatusCodes;
 use App\Helpers\Messages;
-use App\Models\Post;
 use App\Services\PostsService;
 use Exception;
 use Illuminate\Http\Request;
