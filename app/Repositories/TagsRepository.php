@@ -34,7 +34,8 @@ class tagsRepository
     public function update($id, $name)
     {
         try {
-            $tag = new Tag();
+
+            $tag = Tag::find($id);
             $tag->id = $id;
             $tag->name = $name;
             $tag->update();
