@@ -28,11 +28,11 @@ class PostsService
             ->getPostById($id);
     }
 
-    public function createPost($user_id, $title, $content,$tags)
+    public function createPost($user_id, $title, $content, $tags)
     {
         DB::beginTransaction();
         try {
-            $data = $this->postsRepository->createPost($user_id, $title, $content,$tags);
+            $data = $this->postsRepository->createPost($user_id, $title, $content, $tags);
             DB::commit();
             return $data;
         } catch (\Exception $e) {
@@ -41,32 +41,19 @@ class PostsService
         }
     }
 
-    public function updatePost($id,$user_id, $title, $content,$tags)
+    public function updatePost($id, $user_id, $title, $content,$tags)
+    {
+        $result = $this->postsRepository->update($id, $user_id, $title, $content,$tags);
+        return $result;
+    }
+
+    public function destroy($id)
     {
         DB::beginTransaction();
         try {
-            $data = $this->postsRepository->update(
-                $id,
-                $user_id,
-                $title,
-                $content,
-                $tags
-            );
-            DB::commit();
-            return $data;
-        } catch (\Exception $e) {
-            DB::rollback();
-            throw new \Exception($e);
-        }
-    }
-
-    public function destroy($id){
-        DB::beginTransaction();
-        try{
             DB::commit();
             $user = $this->postsRepository->delete($id);
-        }
-        catch(Exception $e){
+        } catch (Exception $e) {
             DB::roolBack();
             Log::info($e->getMessage());
             throw new InvalidArgumentException('Não pode ser deletado');
