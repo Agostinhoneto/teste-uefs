@@ -41,10 +41,19 @@ class PostsService
         }
     }
 
-    public function updatePost($id, $user_id, $title, $content,$tags)
+    public function updatePost($id,$user_id, $title, $content,$tags)
     {
-        $result = $this->postsRepository->update($id, $user_id, $title, $content,$tags);
-        return $result;
+
+        DB::beginTransaction();
+        try {
+            $data = $this->postsRepository->update($id,$user_id, $title, $content,$tags);
+            DB::commit();
+            return $data;
+        }
+        catch (\Exception $e) {
+            DB::rollback();
+            throw new \Exception($e);
+        }
     }
 
     public function destroy($id)
@@ -54,9 +63,8 @@ class PostsService
             DB::commit();
             $user = $this->postsRepository->delete($id);
         } catch (Exception $e) {
-            DB::roolBack();
-            Log::info($e->getMessage());
-            throw new InvalidArgumentException('Não pode ser deletado');
+            DB::rollback();
+            throw new \Exception($e);
         }
         return $user;
     }

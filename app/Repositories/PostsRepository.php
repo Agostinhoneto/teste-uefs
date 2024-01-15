@@ -38,33 +38,18 @@ class PostsRepository
 
     public function update($id,$user_id, $title, $content,$tags)
     {
-            $post = new Post();
-            $post->id = $id;
+
+        try {
+            $post = Post::find($id);
             $post->user_id = $user_id;      
             $post->title = $title;
             $post->content  = $content;
+            $post->update();
             $post->tags()->sync($tags);
-            //dd($post);
-            $post->update();
-//            $post->tags()->sync($tags);
             return $post;
-
-        /*
-        try {
-            $post = new Post();
-            $post->$id = $id;  
-            $post->user_id = $user_id;
-            $post->title = $title;
-            $post->content  = $content;
-            dd($post);
-           
-            $post->update();
-            //$post->tags()->sync($tags);
-            return $post->fresh();
         } catch (\Exception $e) {
             throw new \Exception($e);
         }
-        */
     }
 
     public function delete($id)

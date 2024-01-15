@@ -63,8 +63,7 @@ class PostController extends Controller
                 $request->user_id,
                 $request->title,
                 $request->content,
-                $request->tags,
-                
+                $request->tags,          
             );
             DB::commit();
             return response()->json([Messages::UPDATE_MESSAGE, HttpStatusCodes::OK,$result]);

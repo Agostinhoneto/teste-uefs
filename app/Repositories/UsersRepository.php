@@ -40,7 +40,7 @@ class UsersRepository
     public function update($id,$name,$email,$password)
     {
         try {
-            $user = new User();
+            $user = User::find($id);
             $user->id = $id;
             $user->name = $name;
             $user->email = $email;
